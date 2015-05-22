@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.15" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.2.1.r221_v20070924 Build &lt;2.2.0.v20070924-1550></property>
+    <property name="units">in</property>
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <text-property name="displayName">Blank Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <parameters>
+        <scalar-parameter name="zipcode" id="8">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="paramType">simple</property>
+            <text-property name="promptText">Enter Ticker</text-property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">30456</property>
+            <property name="distinct">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.datatools.enablement.oda.ws" name="Data Source" id="6">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>wsdlURI</name>
+                    <value>http://www.webservicex.net/uszip.asmx?WSDL</value>
+                </ex-property>
+                <ex-property>
+                    <name>driverClassPath</name>
+                </ex-property>
+            </list-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.datatools.enablement.oda.ws.dataSet" name="location" id="48">
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">CITY</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">STATE</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">TIME_ZONE</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">USZip</property>
+                    <property name="paramName">zipcode</property>
+                    <property name="nativeName">USZip</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">1</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">'29349'</expression>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">CITY</property>
+                    <property name="nativeName">CITY</property>
+                    <property name="dataType">any</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">STATE</property>
+                    <property name="nativeName">STATE</property>
+                    <property name="dataType">any</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">TIME_ZONE</property>
+                    <property name="nativeName">TIME_ZONE</property>
+                    <property name="dataType">any</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <property name="queryText">&lt;?xml version="1.0"?>
+&lt;SOAP-ENV:Envelope
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	&lt;SOAP-ENV:Body>
+		&lt;m:GetInfoByZIP xmlns:m="http://www.webserviceX.NET">
+			&lt;m:USZip xsi:type="xsd:string">&amp;?USZip?&amp;&lt;/m:USZip>
+		&lt;/m:GetInfoByZIP>
+	&lt;/SOAP-ENV:Body>
+&lt;/SOAP-ENV:Envelope></property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>1.0</Version>
+  <design:DataSetParameters>
+    <design:parameterDefinitions>
+      <design:inOutMode>In</design:inOutMode>
+      <design:attributes>
+        <design:name>USZip</design:name>
+        <design:position>1</design:position>
+        <design:nativeDataTypeCode>1</design:nativeDataTypeCode>
+        <design:nullability>Unknown</design:nullability>
+        <design:uiHints>
+          <design:displayName>Enter Ticker</design:displayName>
+        </design:uiHints>
+      </design:attributes>
+      <design:inputAttributes>
+        <design:elementAttributes>
+          <design:defaultScalarValue>30456</design:defaultScalarValue>
+          <design:optional>false</design:optional>
+          <design:masksValue>false</design:masksValue>
+          <design:uiHints>
+            <design:promptStyle>TextField</design:promptStyle>
+          </design:uiHints>
+        </design:elementAttributes>
+      </design:inputAttributes>
+    </design:parameterDefinitions>
+  </design:DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>CITY</design:name>
+            <design:position>1</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CITY</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>STATE</design:name>
+            <design:position>2</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>STATE</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>TIME_ZONE</design:name>
+            <design:position>3</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>-1</design:precision>
+            <design:scale>-1</design:scale>
+            <design:nullability>Unknown</design:nullability>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>TIME_ZONE</design:label>
+            <design:formattingHints/>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>xmlQueryText</name>
+                    <value>table0#-TNAME-#table0#:#[/soap:Envelope/soap:Body/GetInfoByZIPResponse/GetInfoByZIPResult/NewDataSet/Table]#:#{CITY;STRING;/CITY},{STATE;STRING;/STATE},{TIME_ZONE;STRING;/TIME_ZONE}</value>
+                </ex-property>
+                <ex-property>
+                    <name>operationTrace</name>
+                    <value>USZip$-$USZipSoap$-$GetInfoByZIP</value>
+                </ex-property>
+            </list-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab" id="4">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="detail" id="19">
+            <property name="backgroundColor">#BACAE2</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="paddingTop">0px</property>
+            <property name="paddingLeft">0px</property>
+            <property name="paddingBottom">0px</property>
+            <property name="paddingRight">0px</property>
+        </style>
+        <style name="headerfooter" id="20">
+            <property name="backgroundColor">#004080</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="groupheader" id="21">
+            <property name="backgroundColor">#0080FF</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="31">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <property name="width">5in</property>
+            <column id="32">
+                <property name="width">2.1666666667in</property>
+            </column>
+            <row id="35">
+                <property name="style">groupheader</property>
+                <cell id="36"/>
+            </row>
+            <row id="39">
+                <property name="style">groupheader</property>
+                <cell id="40">
+                    <table id="49">
+                        <property name="width">100%</property>
+                        <property name="dataSet">location</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">CITY</property>
+                                <expression name="expression">dataSetRow["CITY"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">STATE</property>
+                                <expression name="expression">dataSetRow["STATE"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">TIME_ZONE</property>
+                                <expression name="expression">dataSetRow["TIME_ZONE"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                        </list-property>
+                        <column id="68"/>
+                        <column id="69"/>
+                        <column id="70"/>
+                        <header>
+                            <row id="50">
+                                <property name="style">headerfooter</property>
+                                <cell id="51">
+                                    <label id="52">
+                                        <text-property name="text">CITY</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="53">
+                                    <label id="54">
+                                        <text-property name="text">STATE</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="55">
+                                    <label id="56">
+                                        <text-property name="text">TIME_ZONE</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="57">
+                                <property name="style">detail</property>
+                                <cell id="58">
+                                    <data id="59">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">CITY</property>
+                                    </data>
+                                </cell>
+                                <cell id="60">
+                                    <data id="61">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">STATE</property>
+                                    </data>
+                                </cell>
+                                <cell id="62">
+                                    <data id="63">
+                                        <property name="textAlign">center</property>
+                                        <property name="resultSetColumn">TIME_ZONE</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="64">
+                                <property name="style">headerfooter</property>
+                                <cell id="65"/>
+                                <cell id="66"/>
+                                <cell id="67"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+            <row id="43">
+                <property name="style">groupheader</property>
+                <cell id="44"/>
+            </row>
+        </grid>
+    </body>
+</report>

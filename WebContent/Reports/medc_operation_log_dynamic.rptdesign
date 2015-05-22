@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.0.v201405191524 Build &lt;4.4.0.v20140606-1451></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="ProcessType" id="176">
+            <text-property name="promptText">Select process type</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList">
+                <structure>
+                    <property name="value">1</property>
+                    <property name="label">I-NET</property>
+                </structure>
+                <structure>
+                    <property name="value">2</property>
+                    <property name="label">E-NET</property>
+                </structure>
+            </list-property>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="StartDate" id="174">
+            <text-property name="promptText">Enter start date</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.today()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Medium Date</property>
+                <property name="pattern">Medium Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="EndDate" id="175">
+            <text-property name="promptText">Enter end date</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">BirtDateTime.now()</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Medium Date</property>
+                <property name="pattern">Medium Date</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="DataSourceReport" id="112">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">oracle.jdbc.OracleDriver</property>
+            <property name="odaURL">jdbc:oracle:thin:@medc-isr01:1521:eedb</property>
+            <property name="odaUser">XCH_USER_PROD</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">WENIX1VTRVJfUFJPRA==</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="DataSetReport" id="113">
+            <property name="nullsOrdering">nulls lowest</property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">PSOP</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">PSOP</text-property>
+                    <text-property name="heading">PSOP</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ESOP</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ESOP</text-property>
+                    <text-property name="heading">ESOP</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TEXT</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">TEXT</text-property>
+                    <text-property name="heading">TEXT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">PROCESS</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">PROCESS</text-property>
+                    <text-property name="heading">PROCESS</text-property>
+                </structure>
+            </list-property>
+            <list-property name="filter">
+                <structure>
+                    <property name="operator">between</property>
+                    <expression name="expr" type="javascript">row["ESOP"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["StartDate"].value</value>
+                    </simple-property-list>
+                    <expression name="value2">params["EndDate"].value</expression>
+                </structure>
+                <structure>
+                    <property name="operator">eq</property>
+                    <expression name="expr" type="javascript">row["PROCESS"]</expression>
+                    <simple-property-list name="value1">
+                        <value>params["ProcessType"].value</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">PSOP</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ESOP</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">TEXT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">PROCESS</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">DataSourceReport</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">PSOP</property>
+                    <property name="nativeName">PSOP</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ESOP</property>
+                    <property name="nativeName">ESOP</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">TEXT</property>
+                    <property name="nativeName">TEXT</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">PROCESS</property>
+                    <property name="nativeName">PROCESS</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT PSOP, ESOP, TEXT, PROCESS
+FROM  POR_BEPRO_TA
+WHERE LANG = 'en_US']]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PSOP</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>0</design:precision>
+            <design:scale>6</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PSOP</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PSOP</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ESOP</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>0</design:precision>
+            <design:scale>6</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ESOP</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ESOP</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>TEXT</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>512</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>TEXT</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>TEXT</design:label>
+            <design:formattingHints>
+              <design:displaySize>512</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PROCESS</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PROCESS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PROCESS</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="NewStyle" id="142">
+            <property name="fontSize">8pt</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+        </style>
+        <style name="NewStyle1" id="143">
+            <property name="backgroundColor">#2B5B17</property>
+            <property name="fontSize">8pt</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="NewStyle2" id="150">
+            <property name="fontSize">8pt</property>
+            <property name="fontStyle">italic</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="leftMargin">0.125in</property>
+            <property name="rightMargin">0.010416666666666666in</property>
+            <page-footer>
+                <grid id="71">
+                    <property name="width">8.208333333333334in</property>
+                    <column id="72">
+                        <property name="width">6.895833333333333in</property>
+                    </column>
+                    <column id="73">
+                        <property name="width">0.3333333333333333in</property>
+                    </column>
+                    <column id="74">
+                        <property name="width">0.9791666666666666in</property>
+                    </column>
+                    <row id="107">
+                        <cell id="108">
+                            <text id="111">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<table width="227" border="0">
+ <tr>
+    <td width="170"><div align="right"><em>POWERED BY PSI&amp;trade; </em></div>
+    </span></td>
+    <td width="47"><div align="left"><img src="http://medc-wgw01:8080/logos/psinut.jpg" alt="12" width="21" height="13" /></div></td>
+  </tr>
+</table>
+]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="109"/>
+                        <cell id="110"/>
+                    </row>
+                    <row id="75">
+                        <cell id="76">
+                            <auto-text id="77">
+                                <property name="textAlign">right</property>
+                                <property name="type">page-number</property>
+                            </auto-text>
+                        </cell>
+                        <cell id="78">
+                            <text id="79">
+                                <property name="textAlign">center</property>
+                                <property name="contentType">plain</property>
+                                <text-property name="content"><![CDATA[of]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="80">
+                            <auto-text id="81">
+                                <property name="textAlign">left</property>
+                                <property name="type">total-page</property>
+                            </auto-text>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="32">
+            <property name="contentType">html</property>
+            <text-property name="content"><![CDATA[<CENTER>
+  <table width="880" border="0" align="center">
+    <tr>
+      <td width="117"><div align="left"><img src="http://medc-wgw01:8080/logos/medclogo.jpg" alt="12" width="103" height="70" /></div></td>
+      <td width="625"><div align="center"><span style="font-size: larger"><b>OPERATION LOG</b> </span> <br />
+          <br />
+        <font size="small">Process Type: <VALUE-OF>params["ProcessType"].value</VALUE-OF>
+        <br />
+        Start Date: <VALUE-OF>params["StartDate"].value</VALUE-OF>
+        <br />
+        End Date: <VALUE-OF>params["EndDate"].value</VALUE-OF>
+        </font></div>
+      <p align="center">Report generated on
+        <VALUE-OF>new Date(   )</VALUE-OF>
+</p></td>
+      <td width="55">&amp;nbsp;</td>
+    </tr>
+  </table>
+</CENTER>]]></text-property>
+        </text>
+        <table id="114">
+            <property name="width">8.3125in</property>
+            <property name="dataSet">DataSetReport</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">PSOP</property>
+                    <text-property name="displayName">PSOP</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PSOP"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">ESOP</property>
+                    <text-property name="displayName">ESOP</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ESOP"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">TEXT</property>
+                    <text-property name="displayName">TEXT</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["TEXT"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">PROCESS</property>
+                    <text-property name="displayName">PROCESS</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PROCESS"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <column id="130">
+                <property name="width">1.53125in</property>
+            </column>
+            <column id="131">
+                <property name="width">1.5729166666666667in</property>
+            </column>
+            <column id="132">
+                <property name="width">3.9583333333333335in</property>
+            </column>
+            <column id="133">
+                <property name="width">1.25in</property>
+            </column>
+            <header>
+                <row id="115">
+                    <cell id="116">
+                        <property name="style">NewStyle1</property>
+                        <label id="134">
+                            <text-property name="text">START DATE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="117">
+                        <property name="style">NewStyle1</property>
+                        <label id="136">
+                            <text-property name="text">END DATE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="118">
+                        <property name="style">NewStyle1</property>
+                        <label id="138">
+                            <text-property name="text">LOG DESCRIPTION</text-property>
+                        </label>
+                    </cell>
+                    <cell id="119">
+                        <property name="style">NewStyle1</property>
+                        <label id="140">
+                            <text-property name="text">PROCESS</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="120">
+                    <cell id="121">
+                        <property name="style">NewStyle</property>
+                        <data id="135">
+                            <property name="resultSetColumn">PSOP</property>
+                        </data>
+                    </cell>
+                    <cell id="122">
+                        <property name="style">NewStyle</property>
+                        <data id="137">
+                            <property name="resultSetColumn">ESOP</property>
+                        </data>
+                    </cell>
+                    <cell id="123">
+                        <property name="style">NewStyle</property>
+                        <data id="139">
+                            <property name="resultSetColumn">TEXT</property>
+                        </data>
+                    </cell>
+                    <cell id="124">
+                        <property name="style">NewStyle</property>
+                        <data id="141">
+                            <property name="resultSetColumn">PROCESS</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="125">
+                    <cell id="126"/>
+                    <cell id="127"/>
+                    <cell id="128">
+                        <grid id="156">
+                            <column id="157"/>
+                            <column id="158"/>
+                            <column id="159"/>
+                            <row id="160">
+                                <cell id="161">
+                                    <text id="149">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[Prepared by]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="162">
+                                    <text id="172">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[Verify by]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="163">
+                                    <text id="152">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[Approved by]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                    <cell id="129"/>
+                </row>
+                <row id="144">
+                    <cell id="145"/>
+                    <cell id="146"/>
+                    <cell id="147">
+                        <grid id="164">
+                            <column id="165"/>
+                            <column id="166"/>
+                            <column id="167"/>
+                            <row id="168">
+                                <cell id="169">
+                                    <text id="153">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[______________]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="170">
+                                    <text id="173">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[______________]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="171">
+                                    <text id="155">
+                                        <property name="style">NewStyle2</property>
+                                        <property name="contentType">plain</property>
+                                        <text-property name="content"><![CDATA[______________]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                    <cell id="148"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>
